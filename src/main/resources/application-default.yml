@@ -38,4 +38,4 @@ management:
         include: hystrix.stream
 springdoc:
   swagger-ui:
-    path: /aa-fts-doc.html
+    path: /aa-fit-doc.html
