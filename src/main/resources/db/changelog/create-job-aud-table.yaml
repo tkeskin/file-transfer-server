@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-job-aud-table
+      author: tkeskin
+      changes:
+        - createTable:
+            tableName: JOB_AUD
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_job_aud
+              - column:
+                  name: rev
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_job_aud
+                    referencedTableName: REVINFO
+                    foreignKeyName: fk_rev_job_aud
+                    referencedColumnNames: rev
+                    nullable: false
+              - column:
+                  name: revtype
+                  type: smallint
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_by_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_datetime
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: updated_by
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: updated_datetime
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: auto_start
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: deleted
+                  type: boolean
+                  defaultValueBoolean: false
+              - column:
+                  name: job_status_id
+                  type: int
+                  defaultValue: 0
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_job_status_id
+                    references: JOB_STATUS(id)

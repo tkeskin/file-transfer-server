@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-job-destination-table
+      author: tkeskin
+      changes:
+        - createTable:
+            tableName: JOB_DESTINATION
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_job_destination
+              - column:
+                  name: download_path
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_download
+                  type: boolean
+                  constraints:
+                    nullable: true
+              - column:
+                  name: download_datetime
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: download_url
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: upload_path
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_send
+                  type: boolean
+                  constraints:
+                    nullable: true
+              - column:
+                  name: send_datetime
+                  type: timestamp
+                  constraints:
+                    nullable: true
+              - column:
+                  name: ftp_server_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_job_des_ftid
+                    references: FTP_SERVER(id)
+              - column:
+                  name: job_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_job_des_jid
+                    references: JOB(id)

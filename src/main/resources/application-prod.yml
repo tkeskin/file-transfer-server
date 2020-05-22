@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: aa-file-transfer
+  datasource:
+    hikari:
+      username: postgres
+      password: MYPASSWD
+      maximum-pool-size: 50
+      minimum-idle: 20
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    show-sql: true
+  liquibase:
+    default-schema: AA_FILE_TRANSFER
+    enabled: false
+logging.file: /logs/aa-file-transfer/app.log # spring 2.0.0 da file ve max-size propertylerini birlikte bu şekilde set edebiliyoruz.
+logging.pattern.console:
+logging:
+  file:
+    max-size: 50MB
+  level:
+    ROOT: ERROR
+    tr.com: INFO

@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-rev-job-destination-table
+      author: tkeskin
+      changes:
+        - createSequence:
+            dataType: int
+            incrementBy: 1
+            minValue: 0
+            sequenceName: hibernate_sequence
+            startValue: 1
+        - createTable:
+            tableName: REVINFO
+            columns:
+              - column:
+                  name: rev
+                  type: int
+                  defaultValueSequenceNext: hibernate_sequence
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_rev_job_destination
+              - column:
+                  name: revtstmp
+                  type: bigint

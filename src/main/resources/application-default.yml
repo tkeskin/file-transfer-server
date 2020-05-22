@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: aa-file-transfer
+  datasource:
+    hikari:
+      username: postgres
+      password: MYPASSWD
+      maximum-pool-size: 50
+      minimum-idle: 20
+      connection-timeout: 20500
+    url: jdbc:postgresql://localhost:5432/postgres
+  boot:
+    admin:
+      client:
+        url: http://localhost:21000
+        instance:
+          service-base-url: http://localhost:20100
+  liquibase:
+    default-schema: aa_file_transfer
+    drop-first: true
+    enabled: true
+  http:
+    encoding:
+      charset: UTF-8
+  artemis:
+    host: localhost
+    port: 61616
+    mode: embedded
+    embedded:
+      enabled: true
+logging:
+  level:
+    root: info
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+springdoc:
+  swagger-ui:
+    path: /aa-fts-doc.html

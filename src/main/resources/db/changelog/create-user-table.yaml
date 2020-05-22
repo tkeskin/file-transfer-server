@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: tkeskin
+      changes:
+        - createTable:
+            tableName: USER_FTP
+            columns:
+              - column:
+                  name: id
+                  type: varchar(36)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_user
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: gender
+                  type: varchar(50)
+                  constraints:
+                    nullable: true

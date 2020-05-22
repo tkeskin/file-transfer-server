@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-data-project
+      author: tkeskin
+      changes:
+        - insert:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: name
+                  value: "Haber Akış Sistemi"
+              - column:
+                  name: download_path
+                  value: "/has"
+              - column:
+                  name: created_by
+                  value: "system"
+              - column:
+                  name: created_datetime
+                  value: now
+        - insert:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: name
+                  value: "aa.com.tr"
+              - column:
+                  name: download_path
+                  value: "/aacomtr"
+              - column:
+                  name: created_by
+                  value: "system"
+              - column:
+                  name: created_datetime
+                  value: now
+        - insert:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: name
+                  value: "AA Connect"
+              - column:
+                  name: download_path
+                  value: "/aaconnect"
+              - column:
+                  name: created_by
+                  value: "system"
+              - column:
+                  name: created_datetime
+                  value: now
+        - insert:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: name
+                  value: "Finans Terminali"
+              - column:
+                  name: download_path
+                  value: "/finansterminali"
+              - column:
+                  name: created_by
+                  value: "system"
+              - column:
+                  name: created_datetime
+                  value: now
+        - insert:
+            tableName: PROJECT
+            columns:
+              - column:
+                  name: name
+                  value: "Haber Takip Sistemi"
+              - column:
+                  name: download_path
+                  value: "/hts"
+              - column:
+                  name: created_by
+                  value: "system"
+              - column:
+                  name: created_datetime
+                  value: now

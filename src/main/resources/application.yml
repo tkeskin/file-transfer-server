@@ -1,0 +1,41 @@
+server:
+  port: 7007
+  tomcat:
+    max-threads: 500
+    min-spare-threads: 50
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # bunu kaldırırsanız select sorguları patlar.
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: true
+          use_query_cache: true
+          region:
+            factory_class: org.hibernate.cache.jcache.JCacheRegionFactory
+        hibernate:
+          javax:
+            cache:
+              provider: com.hazelcast.cache.HazelcastCachingProvider
+        default_schema: aa_file_transfer
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+aa.upload.queue: upload-queue
+aa.download.queue: download-queue
+aa.autostart.queue: auto-start

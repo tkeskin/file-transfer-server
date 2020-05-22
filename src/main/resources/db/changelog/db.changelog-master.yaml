@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/create-ftp-server-table.yaml
+  - include:
+      file: db/changelog/create-job-status-table.yaml
+  - include:
+      file: db/changelog/create-job-table.yaml
+  - include:
+      file: db/changelog/create-user-table.yaml
+  - include:
+      file: db/changelog/create-job-destination-table.yaml
+  - include:
+      file: db/changelog/create-project-table.yaml
+  - include:
+      file: db/changelog/insert-job-status-table.yaml
+  - include:
+      file: db/changelog/insert-project-table.yaml
+  - include:
+      file: db/changelog/insert-ftp-server-table.yaml
+  - include:
+      file: db/changelog/create-rev-job-destination-table.yaml
+  - include:
+      file: db/changelog/create-job-destination-aud-table.yaml
+  - include:
+      file: db/changelog/create-job-aud-table.yaml
