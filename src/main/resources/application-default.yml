@@ -9,12 +9,6 @@ spring:
       minimum-idle: 20
       connection-timeout: 20500
     url: jdbc:postgresql://localhost:5432/postgres
-  boot:
-    admin:
-      client:
-        url: http://localhost:21000
-        instance:
-          service-base-url: http://localhost:20100
   liquibase:
     default-schema: aa_file_transfer
     drop-first: true

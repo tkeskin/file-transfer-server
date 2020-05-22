@@ -10,12 +10,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
   jpa:
     show-sql: true
-  boot:
-    admin:
-      client:
-        url: http://test.turkpatent.gov.tr:21000
-        instance:
-          service-base-url: http://test.turkpatent.gov.tr:20100
   cache:
     type: redis
   redis:
