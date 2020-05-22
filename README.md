@@ -1,5 +1,5 @@
 #AA File Transfer
-- openapi 3.0 entegre edildi dokumantasyon için /aa-fts-doc.html
+- openapi 3.0 entegre edildi dokumantasyon için /aa-fit-doc.html
 
 How to Dockerize Spring Boot Application
 Build Docker Image
