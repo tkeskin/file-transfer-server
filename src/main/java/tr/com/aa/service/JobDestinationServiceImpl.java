@@ -18,10 +18,17 @@ public class JobDestinationServiceImpl implements JobDestinationService {
   JobDestinationRepository jobDestinationRepository;
 
   @Override
-  public List<JobDestinationDto> findByJobEntityId(UUID jobId) {
+  public List<JobDestinationDto> findByDownloadFalseAndJobEntityId(UUID jobId) {
 
     return JobDestinationMapper.INSTANCE
-        .toJobDestinationDto(jobDestinationRepository.findByJobEntityId(jobId));
+        .toJobDestinationDto(jobDestinationRepository.findByDownloadFalseAndJobEntityId(jobId));
+  }
+
+  @Override
+  public List<JobDestinationDto> findByDownloadTrueAndSendFalseAndJobEntityId(UUID jobId) {
+
+    return JobDestinationMapper.INSTANCE
+        .toJobDestinationDto(jobDestinationRepository.findByDownloadTrueAndSendFalseAndJobEntityId(jobId));
   }
 
   @Override

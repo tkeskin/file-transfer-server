@@ -45,12 +45,15 @@ public class JmsConsumer {
   public Boolean receiveDownload(UUID id) {
 
     log.info("Received download job id= {}", id);
+    log.info("download edilecek dosyalarin listesi kontrol ediliyor");
+    Map<String, List<JobDestinationDto>> collect = jobDestinationService
+        .findByDownloadFalseAndJobEntityId(id)
+        .stream()
+        .collect(Collectors.groupingBy(JobDestinationDto::getDownloadUrl));
+    log.info("download edilecek dosya sayisi : {}", collect.size());
 
     JobDto byId = jobService.findById(id);
     ProjectDto downloadPath = projectService.findById(byId.getCreatedById());
-    Map<String, List<JobDestinationDto>> collect = jobDestinationService.findByJobEntityId(id)
-        .stream()
-        .collect(Collectors.groupingBy(JobDestinationDto::getDownloadUrl));
 
     collect.entrySet().stream()
         .map(c -> fileDownloadService.downloadFile(downloadPath.getDownloadPath(), c.getValue()))
@@ -65,10 +68,11 @@ public class JmsConsumer {
   public Boolean receiveUpload(UUID id) {
 
     log.info("Received upload job id= {}", id);
-    List<JobDestinationDto> byJobEntityId = jobDestinationService.findByJobEntityId(id);
-
-    Map<UUID, List<JobDestinationDto>> destinationByFtpServer = byJobEntityId.stream()
+    log.info("upload edilecek dosyalarin listesi kontrol ediliyor");
+    Map<UUID, List<JobDestinationDto>> destinationByFtpServer = jobDestinationService
+        .findByDownloadTrueAndSendFalseAndJobEntityId(id).stream()
         .collect(Collectors.groupingBy(JobDestinationDto::getFtpServerId));
+    log.info("baglanilacak ftp server sayisi : {}", destinationByFtpServer.size());
 
     destinationByFtpServer.entrySet().stream()
         .map(c -> fileUploadService.uploadFile(c))

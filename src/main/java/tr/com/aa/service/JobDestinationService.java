@@ -6,7 +6,9 @@ import tr.com.aa.models.JobDestinationDto;
 
 public interface JobDestinationService {
 
-  List<JobDestinationDto> findByJobEntityId(UUID id);
+  List<JobDestinationDto> findByDownloadFalseAndJobEntityId(UUID id);
+
+  List<JobDestinationDto> findByDownloadTrueAndSendFalseAndJobEntityId(UUID id);
 
   String findByDownloadFalseAndId(List<JobDestinationDto> jobDestinationDto);
 

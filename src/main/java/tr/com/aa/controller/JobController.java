@@ -7,20 +7,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.integration.dsl.IntegrationFlow;
-import org.springframework.integration.dsl.IntegrationFlows;
-import org.springframework.integration.file.dsl.Files;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -297,33 +290,6 @@ public class JobController {
     } catch (Exception exp) {
       throw new BadRequestException(exp.getLocalizedMessage());
     }
-  }
-
-  @GetMapping(value = "/stream-sse-mvc/{id}", produces = Const.JSON)
-  public SseEmitter streamSseMvc(@PathVariable(value = "id") UUID id) {
-
-    SseEmitter emitter = new SseEmitter(60 * 1000L);
-    sses.put("id", emitter);
-    return emitter;
-  }
-
-  @Bean
-  IntegrationFlow inboundFlow(@Value("${input-dir:file://${HOME}/in}") File in) {
-
-    return IntegrationFlows.from(Files.inboundAdapter(in).autoCreateDirectory(true),
-        poller -> poller.poller(spec -> spec.fixedRate(1000L)))
-        .transform(File.class, File::getAbsolutePath)
-        .handle(String.class, (path, map) -> {
-          sses.forEach((k, sse) -> {
-            try {
-              sse.send(path);
-            } catch (IOException e) {
-              throw new RuntimeException(e);
-            }
-          });
-          return null;
-        })
-        .get();
   }
 
 }

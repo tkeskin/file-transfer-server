@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import tr.com.aa.artemis.JmsProducer;
+import tr.com.aa.exception.EntityNotfoundException;
 import tr.com.aa.models.JobDto;
 import tr.com.aa.service.JobService;
 
@@ -32,7 +33,7 @@ public class ScheduledTasks {
       JobDto byAutoStartAndPending = jobService.findByAutoStartAndPending(0);
       jmsProducer.autoStart(byAutoStartAndPending.getId());
     } catch (Exception e) {
-      log.error("", e);
+      log.info("", e);
     }
   }
 

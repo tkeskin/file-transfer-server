@@ -12,6 +12,10 @@ public interface JobDestinationRepository extends
 
   List<JobDestinationEntity> findByJobEntityId(UUID jobId);
 
+  List<JobDestinationEntity> findByDownloadFalseAndJobEntityId(UUID jobId);
+
+  List<JobDestinationEntity> findByDownloadTrueAndSendFalseAndJobEntityId(UUID jobId);
+
   JobDestinationEntity findByDownloadFalseAndId(UUID id);
 
   JobDestinationEntity getById(UUID id);

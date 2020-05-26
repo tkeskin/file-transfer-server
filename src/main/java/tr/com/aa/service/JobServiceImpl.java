@@ -42,8 +42,12 @@ public class JobServiceImpl implements JobService {
   @Override
   public JobDto findByAutoStartAndPending(Integer jobStatus) {
 
+    Optional<JobEntity> byAuto = Optional
+        .ofNullable(jobRepository.findByAutoStartTrueAndJobStatusIs(jobStatus)
+            .orElseThrow(() -> new EntityNotfoundException(jobStatus.toString())));
+
     return JobMapper.INSTANCE
-        .toFtpServerDto(jobRepository.findByAutoStartTrueAndJobStatusIs(jobStatus));
+        .toFtpServerDto(byAuto.get());
   }
 
   @Override

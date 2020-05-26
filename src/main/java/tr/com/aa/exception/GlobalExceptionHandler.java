@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler({IllegalArgumentException.class})
+  @ExceptionHandler(IllegalArgumentException.class)
   public String illegalArgumentException() {
 
     return "Wrong parameter";
