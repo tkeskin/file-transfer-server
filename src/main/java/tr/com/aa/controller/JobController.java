@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import tr.com.aa.artemis.JmsProducer;
 import tr.com.aa.exception.BadRequestException;
 import tr.com.aa.exception.ErrorDetails;
+import tr.com.aa.models.JobDestinationList;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
 import tr.com.aa.service.JobService;
@@ -218,8 +219,8 @@ public class JobController {
   }
 
   @Operation(
-      summary = "Delete a job",
-      description = "Delete a job",
+      summary = "Destination detail for job",
+      description = "Destination",
       tags = "Job"
   )
   @ApiResponses(
@@ -228,7 +229,7 @@ public class JobController {
               responseCode = "200",
               description = "successful operation",
               content = @Content(
-                  schema = @Schema(implementation = ResponseEntity.class)
+                  schema = @Schema(implementation = JobDestinationList.class)
               )
           ),
           @ApiResponse(
