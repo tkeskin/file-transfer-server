@@ -8,8 +8,8 @@ public enum ProtocolEnum {
   FTP(1, "FTP"),
   SFTP(2, "SFTP");
 
-  private short value;
-  private String text;
+  private final short value;
+  private final String text;
 
   ProtocolEnum(int value, String text) {
 

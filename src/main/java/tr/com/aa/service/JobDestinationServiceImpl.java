@@ -21,7 +21,7 @@ public class JobDestinationServiceImpl implements JobDestinationService {
   public List<JobDestinationDto> findByJobEntityId(UUID jobId) {
 
     return JobDestinationMapper.INSTANCE
-        .toJobDestinationrDto(jobDestinationRepository.findByJobEntityId(jobId));
+        .toJobDestinationDto(jobDestinationRepository.findByJobEntityId(jobId));
   }
 
   @Override

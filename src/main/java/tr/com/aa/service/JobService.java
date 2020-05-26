@@ -1,6 +1,7 @@
 package tr.com.aa.service;
 
 import java.util.UUID;
+import tr.com.aa.models.JobDestinationList;
 import tr.com.aa.models.JobDto;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
@@ -16,4 +17,6 @@ public interface JobService {
   Boolean saveJob(JobsDto jobsDto);
 
   Boolean deleteJob(UUID id);
+
+  JobDestinationList findByJobId(UUID jobId);
 }

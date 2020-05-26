@@ -218,6 +218,46 @@ public class JobController {
   }
 
   @Operation(
+      summary = "Delete a job",
+      description = "Delete a job",
+      tags = "Job"
+  )
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "successful operation",
+              content = @Content(
+                  schema = @Schema(implementation = ResponseEntity.class)
+              )
+          ),
+          @ApiResponse(
+              responseCode = "400",
+              description = "Bad request",
+              content = @Content(
+                  schema = @Schema(implementation = ErrorDetails.class)
+              )
+          ),
+          @ApiResponse(
+              responseCode = "404",
+              description = "not found",
+              content = @Content(
+                  schema = @Schema(implementation = ErrorDetails.class)
+              )
+          )
+      }
+  )
+  @GetMapping(value = Const.Request.JOB_DESTINATION, produces = Const.JSON)
+  public ResponseEntity<?> getJobDestination(@PathVariable(value = "id") UUID id) throws Exception {
+
+    try {
+      return ResponseEntity.ok(jobService.findByJobId(id));
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  @Operation(
       summary = "Start Download",
       description = "Start Download",
       tags = "Download"

@@ -21,6 +21,7 @@ public class Const {
     public static final String JOB = "/job";
     public static final String START_JOB = "/start-job/{id}";
     public static final String DELETE_JOB = "/delete-job/{id}";
+    public static final String JOB_DESTINATION = "/job-destination/{id}";
     public static final String START_DOWNLOAD = "/start-download/{id}";
     public static final String TEST_CONNECTION = "/test-connection";
     public static final String PROJECT = "/project";

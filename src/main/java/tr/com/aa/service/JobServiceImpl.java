@@ -10,9 +10,11 @@ import tr.com.aa.dal.entity.JobEntity;
 import tr.com.aa.dal.repository.JobDestinationRepository;
 import tr.com.aa.dal.repository.JobRepository;
 import tr.com.aa.exception.EntityNotfoundException;
+import tr.com.aa.mapper.JobDestinationMapper;
 import tr.com.aa.mapper.JobMapper;
 import tr.com.aa.models.FileList;
 import tr.com.aa.models.FtpServerDestination;
+import tr.com.aa.models.JobDestinationList;
 import tr.com.aa.models.JobDto;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
@@ -75,5 +77,14 @@ public class JobServiceImpl implements JobService {
 
     jobRepository.deleteById(id);
     return true;
+  }
+
+  @Override
+  public JobDestinationList findByJobId(UUID jobId) {
+
+    JobDestinationList jobDestinationList = new JobDestinationList();
+    jobDestinationList.setJobDestinationViewList(JobDestinationMapper.INSTANCE
+        .toJobDestinationViewDto(jobDestinationRepository.findByJobEntityId(jobId)));
+    return jobDestinationList;
   }
 }
