@@ -17,4 +17,6 @@ public interface JobMapper {
   JobEntity toJobEntity(JobDto jobDto);
 
   JobDto toFtpServerDto(JobEntity jobEntity);
+
+  List<JobDto> topendingJobList(List<JobEntity> jobEntity);
 }

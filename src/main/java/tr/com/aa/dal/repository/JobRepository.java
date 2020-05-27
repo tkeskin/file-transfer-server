@@ -1,7 +1,6 @@
 package tr.com.aa.dal.repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import javax.persistence.QueryHint;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +17,6 @@ public interface JobRepository
 
   JobEntity getById(UUID id);
 
-  Optional<JobEntity> findByAutoStartTrueAndJobStatusIs(Integer jobStatus);
+  List<JobEntity> findByAutoStartTrueAndJobStatusIs(Integer jobStatus);
 
 }

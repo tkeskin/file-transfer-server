@@ -73,7 +73,7 @@ public class FileDownloadServiceImpl implements FileDownloadService {
 
   private String getTodayFolder(String downloadPath) {
 
-    String format = "yyyy-MM-dd-HH:mm";
+    String format = "yyyy-MM-dd-HH:mm:ss";
     DateFormat dateFormatter = new SimpleDateFormat(format);
     String date = dateFormatter.format(new Date());
     return FileUtils.getUserDirectoryPath() + downloadPath + "/" + date;

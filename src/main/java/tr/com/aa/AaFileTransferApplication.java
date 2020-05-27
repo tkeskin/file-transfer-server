@@ -47,7 +47,7 @@ public class AaFileTransferApplication implements CommandLineRunner {
       System.setProperty("spring.profiles.active", prodProfile);
       if (System.getProperty("spring.profiles.active") == null
           || !System.getProperty("spring.profiles.active").equals(prodProfile)) {
-        String exMessage = "--- UYGULAMA PROFİLİ 'prod' OLARAK SET EDİLEMEDİ!!!";
+        String exMessage = "--- Uygulama profi̇li̇ 'prod' olarak set EDİLEMEDİ!!!";
         log.error(exMessage);
         throw new RuntimeException(exMessage);
       }

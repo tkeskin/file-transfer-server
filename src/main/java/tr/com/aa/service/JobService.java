@@ -5,12 +5,13 @@ import tr.com.aa.models.JobDestinationList;
 import tr.com.aa.models.JobDto;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
+import tr.com.aa.models.PendingJobList;
 
 public interface JobService {
 
   JobDto findById(UUID id);
 
-  JobDto findByAutoStartAndPending(Integer jobStatus);
+  PendingJobList findByAutoStartAndPending(Integer jobStatus);
 
   JobList findAll();
 

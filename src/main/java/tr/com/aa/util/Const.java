@@ -5,6 +5,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Const {
 
+  public final int POOL_SIZE = 10;
+
   public final String TABLE_FTP_SERVER = "ftp_server";
   public final String TABLE_PROJECT = "project";
   public final String TABLE_USER = "user_ftp";

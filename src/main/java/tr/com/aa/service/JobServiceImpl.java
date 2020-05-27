@@ -18,6 +18,7 @@ import tr.com.aa.models.JobDestinationList;
 import tr.com.aa.models.JobDto;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
+import tr.com.aa.models.PendingJobList;
 
 @Service
 @Transactional
@@ -40,14 +41,13 @@ public class JobServiceImpl implements JobService {
   }
 
   @Override
-  public JobDto findByAutoStartAndPending(Integer jobStatus) {
+  public PendingJobList findByAutoStartAndPending(Integer jobStatus) {
 
-    Optional<JobEntity> byAuto = Optional
-        .ofNullable(jobRepository.findByAutoStartTrueAndJobStatusIs(jobStatus)
-            .orElseThrow(() -> new EntityNotfoundException(jobStatus.toString())));
+    PendingJobList pendingJobList = new PendingJobList();
+    pendingJobList.setPendingJobList(JobMapper.INSTANCE
+        .topendingJobList(jobRepository.findByAutoStartTrueAndJobStatusIs(jobStatus)));
 
-    return JobMapper.INSTANCE
-        .toFtpServerDto(byAuto.get());
+    return pendingJobList;
   }
 
   @Override

@@ -28,7 +28,8 @@ public class JobDestinationServiceImpl implements JobDestinationService {
   public List<JobDestinationDto> findByDownloadTrueAndSendFalseAndJobEntityId(UUID jobId) {
 
     return JobDestinationMapper.INSTANCE
-        .toJobDestinationDto(jobDestinationRepository.findByDownloadTrueAndSendFalseAndJobEntityId(jobId));
+        .toJobDestinationDto(
+            jobDestinationRepository.findByDownloadTrueAndSendFalseAndJobEntityId(jobId));
   }
 
   @Override
