@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import tr.com.aa.artemis.JmsProducer;
 import tr.com.aa.exception.BadRequestException;
 import tr.com.aa.exception.ErrorDetails;
@@ -39,8 +36,6 @@ public class JobController {
 
   @Autowired
   JmsProducer jmsProducer;
-
-  private final Map<String, SseEmitter> sses = new ConcurrentHashMap<>();
 
   /**
    * job - list
@@ -289,6 +284,47 @@ public class JobController {
       return ResponseEntity.ok("ok");
     } catch (Exception exp) {
       throw new BadRequestException(exp.getLocalizedMessage());
+    }
+  }
+
+  @Operation(
+      summary = "Destination detail for job",
+      description = "Destination",
+      tags = "Job"
+  )
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              responseCode = "200",
+              description = "successful operation",
+              content = @Content(
+                  schema = @Schema(implementation = JobDestinationList.class)
+              )
+          ),
+          @ApiResponse(
+              responseCode = "400",
+              description = "Bad request",
+              content = @Content(
+                  schema = @Schema(implementation = ErrorDetails.class)
+              )
+          ),
+          @ApiResponse(
+              responseCode = "404",
+              description = "not found",
+              content = @Content(
+                  schema = @Schema(implementation = ErrorDetails.class)
+              )
+          )
+      }
+  )
+  @GetMapping(value = Const.Request.QUERY_JOB, produces = Const.JSON)
+  public ResponseEntity<?> queryJob(@PathVariable(value = "createdById") UUID createdById)
+      throws Exception {
+
+    try {
+      return ResponseEntity.ok(jobService.findBycreatedById(createdById));
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
     }
   }
 

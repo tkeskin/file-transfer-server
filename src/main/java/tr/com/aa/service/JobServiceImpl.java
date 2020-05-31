@@ -19,6 +19,7 @@ import tr.com.aa.models.JobDto;
 import tr.com.aa.models.JobList;
 import tr.com.aa.models.JobsDto;
 import tr.com.aa.models.PendingJobList;
+import tr.com.aa.util.Const;
 
 @Service
 @Transactional
@@ -90,5 +91,22 @@ public class JobServiceImpl implements JobService {
     jobDestinationList.setJobDestinationViewList(JobDestinationMapper.INSTANCE
         .toJobDestinationViewDto(jobDestinationRepository.findByJobEntityId(jobId)));
     return jobDestinationList;
+  }
+
+  @Override
+  public JobList findBycreatedById(UUID createdById) {
+
+    JobList jobList = new JobList();
+    jobList.setJobList(JobMapper.INSTANCE
+        .toJobList(jobRepository.findByCreatedById(createdById)));
+    return jobList;
+  }
+
+  @Override
+  public Boolean updateJobStatus(UUID id) {
+
+    Optional<JobEntity> byId = jobRepository.findById(id);
+    byId.get().setJobStatus(Const.COMPLETED_JOB);
+    return true;
   }
 }

@@ -45,7 +45,7 @@ public class JobDestinationServiceImpl implements JobDestinationService {
         jobDestinationRepository.save(byDownload);
       }
     }
-    return "aaa";
+    return "aa";
   }
 
   @Override
@@ -60,6 +60,14 @@ public class JobDestinationServiceImpl implements JobDestinationService {
         jobDestinationRepository.save(byUpload);
       }
     }
-    return "aaa";
+    return "aa";
+  }
+
+  @Override
+  public Boolean findAllfileSend(UUID id) {
+
+    return jobDestinationRepository.findByJobEntityId(id)
+        .stream()
+        .allMatch(JobDestinationEntity::getSend);
   }
 }

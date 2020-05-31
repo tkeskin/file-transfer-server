@@ -20,4 +20,8 @@ public interface JobService {
   Boolean deleteJob(UUID id);
 
   JobDestinationList findByJobId(UUID jobId);
+
+  JobList findBycreatedById(UUID createdById);
+
+  Boolean updateJobStatus(UUID id);
 }

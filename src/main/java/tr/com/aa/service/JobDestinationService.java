@@ -14,4 +14,6 @@ public interface JobDestinationService {
 
   String updateSend(List<JobDestinationDto> jobDestinationDto);
 
+  Boolean findAllfileSend(UUID id);
+
 }

@@ -6,6 +6,8 @@ import lombok.experimental.UtilityClass;
 public class Const {
 
   public final int POOL_SIZE = 10;
+  public final int PENDING_JOB = 0;
+  public final int COMPLETED_JOB = 3;
 
   public final String TABLE_FTP_SERVER = "ftp_server";
   public final String TABLE_PROJECT = "project";
@@ -24,6 +26,7 @@ public class Const {
     public static final String START_JOB = "/start-job/{id}";
     public static final String DELETE_JOB = "/delete-job/{id}";
     public static final String JOB_DESTINATION = "/job-destination/{id}";
+    public static final String QUERY_JOB = "/query-job/{createdById}";
     public static final String START_DOWNLOAD = "/start-download/{id}";
     public static final String TEST_CONNECTION = "/test-connection";
     public static final String PROJECT = "/project";
