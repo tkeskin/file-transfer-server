@@ -23,7 +23,7 @@ public class Const {
     public static final String FTP_SERVER = "/ftp-server";
     public static final String DELETE_FTP_SERVER = "/ftp-server/{id}";
     public static final String JOB = "/job";
-    public static final String START_JOB = "/start-job/{id}";
+    public static final String START_UPLOAD = "/start-upload/{id}";
     public static final String DELETE_JOB = "/delete-job/{id}";
     public static final String DETAIL_JOB = "/detail-job/{id}";
     public static final String QUERY_JOB = "/query-job/{createdById}";

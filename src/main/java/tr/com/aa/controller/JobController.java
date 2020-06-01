@@ -126,8 +126,8 @@ public class JobController {
   }
 
   @Operation(
-      summary = "Start Job",
-      description = "Start Job",
+      summary = "Start Upload",
+      description = "Start Upload",
       tags = "Job"
   )
   @ApiResponses(
@@ -155,7 +155,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.START_JOB, produces = Const.JSON)
+  @GetMapping(value = Const.Request.START_UPLOAD, produces = Const.JSON)
   public ResponseEntity<?> startJob(@PathVariable(value = "id") UUID id) {
 
     try {
