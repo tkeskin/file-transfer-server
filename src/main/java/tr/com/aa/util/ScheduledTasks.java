@@ -32,7 +32,7 @@ public class ScheduledTasks {
   @Scheduled(cron = "0 */2 * ? * *")
   public void pendingJobScheduleTask() {
 
-    log.info("Pending Job Task :: Execution Time - {}",
+    log.info("Pending Job Task :: {}",
         dateTimeFormatter.format(LocalDateTime.now()));
 
     try {
@@ -47,7 +47,7 @@ public class ScheduledTasks {
   @Scheduled(cron = "0 1/2 * ? * *")
   public void updateJobStatusScheduleTask() {
 
-    log.info("Update Job Task :: Execution Time - {}",
+    log.info("Update Job Task :: {}",
         dateTimeFormatter.format(LocalDateTime.now()));
 
     try {
