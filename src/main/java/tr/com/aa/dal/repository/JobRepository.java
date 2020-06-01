@@ -19,6 +19,7 @@ public interface JobRepository
 
   JobEntity getById(UUID id);
 
+  @QueryHints({@QueryHint(name = "org.hibernate.cacheable", value = "true")})
   List<JobEntity> findByAutoStartTrueAndJobStatusIs(Integer jobStatus);
 
 }

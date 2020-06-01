@@ -29,10 +29,11 @@ public class ScheduledTasks {
   private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter
       .ofPattern("HH:mm:ss");
 
-  @Scheduled(cron = "0 */3 * ? * *")
+  @Scheduled(cron = "0 */2 * ? * *")
   public void pendingJobScheduleTask() {
 
-    log.info("Pending Job Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
+    log.info("Pending Job Task :: Execution Time - {}",
+        dateTimeFormatter.format(LocalDateTime.now()));
 
     try {
       for (JobDto pendingJob : getByAutoStartAndPending().getPendingJobList()) {
@@ -43,14 +44,15 @@ public class ScheduledTasks {
     }
   }
 
-  @Scheduled(cron = "0 *1 * ? * *")
+  @Scheduled(cron = "0 1/2 * ? * *")
   public void updateJobStatusScheduleTask() {
 
-    log.info("Update Job Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()));
+    log.info("Update Job Task :: Execution Time - {}",
+        dateTimeFormatter.format(LocalDateTime.now()));
 
     try {
       for (JobDto pendingJob : getByAutoStartAndPending().getPendingJobList()) {
-        if(jobDestinationService.findAllfileSend(pendingJob.getId())){
+        if (jobDestinationService.findAllfileSend(pendingJob.getId())) {
           updateJobStatus(pendingJob.getId());
         }
       }

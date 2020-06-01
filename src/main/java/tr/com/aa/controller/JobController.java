@@ -27,7 +27,7 @@ import tr.com.aa.service.JobService;
 import tr.com.aa.util.Const;
 
 @Slf4j
-@Tag(name = "job", description = "process")
+@Tag(name = "job", description = ".")
 @RestController
 public class JobController {
 
@@ -207,8 +207,8 @@ public class JobController {
   }
 
   @Operation(
-      summary = "Destination detail for job",
-      description = "Destination",
+      summary = "Detail for job",
+      description = "Detail",
       tags = "Job"
   )
   @ApiResponses(
@@ -236,7 +236,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.JOB_DESTINATION, produces = Const.JSON)
+  @GetMapping(value = Const.Request.DETAIL_JOB, produces = Const.JSON)
   public ResponseEntity<?> getJobDestination(@PathVariable(value = "id") UUID id) throws Exception {
 
     try {
@@ -288,8 +288,8 @@ public class JobController {
   }
 
   @Operation(
-      summary = "Destination detail for job",
-      description = "Destination",
+      summary = "Query for job",
+      description = "Query",
       tags = "Job"
   )
   @ApiResponses(

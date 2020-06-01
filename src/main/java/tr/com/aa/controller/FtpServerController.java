@@ -25,7 +25,7 @@ import tr.com.aa.service.FtpServerService;
 import tr.com.aa.util.Const;
 
 @Slf4j
-@Tag(name = "ftp", description = "process")
+@Tag(name = "ftp", description = ".")
 @RestController
 public class FtpServerController {
 

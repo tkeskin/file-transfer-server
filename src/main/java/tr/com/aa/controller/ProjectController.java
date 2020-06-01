@@ -26,7 +26,7 @@ import tr.com.aa.service.ProjectService;
 import tr.com.aa.util.Const;
 
 @Slf4j
-@Tag(name = "project", description = "process")
+@Tag(name = "project", description = ".")
 @RestController
 public class ProjectController {
 

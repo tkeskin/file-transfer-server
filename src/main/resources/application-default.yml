@@ -11,7 +11,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
   liquibase:
     default-schema: aa_file_transfer
-    drop-first: true
+    drop-first: false
     enabled: true
   http:
     encoding:
