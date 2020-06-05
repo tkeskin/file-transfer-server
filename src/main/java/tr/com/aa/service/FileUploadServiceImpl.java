@@ -1,9 +1,6 @@
 package tr.com.aa.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
@@ -26,28 +23,24 @@ public class FileUploadServiceImpl implements FileUploadService {
   @Autowired
   FtpServerService ftpServerService;
 
-  @Async
+  @Async("uploadTaskExecutor")
   @Override
-  public CompletableFuture<List<JobDestinationDto>> uploadFile(
-      Map.Entry<UUID, List<JobDestinationDto>> file) {
+  public CompletableFuture<JobDestinationDto> uploadFile(JobDestinationDto file) {
 
-    List<JobDestinationDto> jobDestination = new ArrayList<>();
-    log.info("{} Start upload thread : {}", file.getKey(), Thread.currentThread().getName());
+    log.info("{} Start upload thread : {}", file.getFtpServerId(),
+        Thread.currentThread().getName());
     long start = System.currentTimeMillis();
-    for (JobDestinationDto jobDestinationDto : file.getValue()) {
-      try {
-        if (connectUpload(file.getKey(), jobDestinationDto)) {
-          jobDestinationDto.setSend(true);
-          jobDestinationDto.setSendDateTime(new Date());
-        }
-      } catch (Exception e) {
-        log.error("{} : ", jobDestinationDto.getDownloadPath(), e);
+    try {
+      if (connectUpload(file.getFtpServerId(), file)) {
+        file.setSend(true);
+        file.setSendDateTime(new Date());
       }
-      jobDestination.add(jobDestinationDto);
+    } catch (Exception e) {
+      log.error("{} : ", file.getDownloadPath(), e);
     }
     long end = System.currentTimeMillis();
     log.info("{} Total time {}", Thread.currentThread().getName(), (end - start));
-    return CompletableFuture.completedFuture(jobDestination);
+    return CompletableFuture.completedFuture(file);
   }
 
   public Boolean connectUpload(UUID uuid,

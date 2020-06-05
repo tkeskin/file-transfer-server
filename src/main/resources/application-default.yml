@@ -16,12 +16,11 @@ spring:
   http:
     encoding:
       charset: UTF-8
-  artemis:
-    host: localhost
-    port: 61616
-    mode: embedded
-    embedded:
-      enabled: true
+  activemq:
+    broker-url: tcp://localhost:61616?jms.messagePrioritySupported=true
+    packages:
+      trust-all: false
+      trusted: tr.com.aa
 logging:
   level:
     root: info

@@ -1,14 +1,17 @@
 package tr.com.aa.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tr.com.aa.dal.entity.JobDestinationEntity;
 import tr.com.aa.dal.repository.JobDestinationRepository;
+import tr.com.aa.exception.EntityNotfoundException;
 import tr.com.aa.mapper.JobDestinationMapper;
 import tr.com.aa.models.JobDestinationDto;
+import tr.com.aa.models.JobDestinationList;
 
 @Service
 @Transactional
@@ -33,33 +36,40 @@ public class JobDestinationServiceImpl implements JobDestinationService {
   }
 
   @Override
-  public String findByDownloadFalseAndId(List<JobDestinationDto> jobDestinationDto) {
+  public JobDestinationList findByDownloadFalse() {
 
-    for (JobDestinationDto dto : jobDestinationDto) {
-      JobDestinationEntity byDownload = jobDestinationRepository
-          .findByDownloadFalseAndId(dto.getId());
-      if (dto.getDownload()) {
-        byDownload.setDownload(true);
-        byDownload.setDownloadDateTime(dto.getDownloadDateTime());
-        byDownload.setDownloadPath(dto.getDownloadPath());
-        jobDestinationRepository.save(byDownload);
-      }
-    }
-    return "aa";
+    JobDestinationList jobDestinationList = new JobDestinationList();
+    jobDestinationList.setJobDestinationList(JobDestinationMapper.INSTANCE
+        .toJobDestinationDto(
+            jobDestinationRepository.findByDownloadFalse()));
+    return jobDestinationList;
   }
 
   @Override
-  public String updateSend(List<JobDestinationDto> jobDestinationDto) {
+  public JobDestinationEntity findByDownloadFalseAndId(JobDestinationDto jobDestinationDto) {
 
-    for (JobDestinationDto dto : jobDestinationDto) {
-      JobDestinationEntity byUpload = jobDestinationRepository
-          .getById(dto.getId());
-      if (dto.getSend()) {
-        byUpload.setSend(dto.getSend());
-        byUpload.setSendDateTime(dto.getSendDateTime());
-        jobDestinationRepository.save(byUpload);
-      }
+    JobDestinationEntity byDownload = jobDestinationRepository
+        .findByDownloadFalseAndId(jobDestinationDto.getId());
+    if (jobDestinationDto.getDownload()) {
+      byDownload.setDownload(true);
+      byDownload.setDownloadDateTime(jobDestinationDto.getDownloadDateTime());
+      byDownload.setDownloadPath(jobDestinationDto.getDownloadPath());
+      jobDestinationRepository.save(byDownload);
     }
+    return byDownload;
+  }
+
+  @Override
+  public String updateSend(JobDestinationDto jobDestinationDto) {
+
+    JobDestinationEntity byUpload = jobDestinationRepository
+        .getById(jobDestinationDto.getId());
+    if (jobDestinationDto.getSend()) {
+      byUpload.setSend(jobDestinationDto.getSend());
+      byUpload.setSendDateTime(jobDestinationDto.getSendDateTime());
+      jobDestinationRepository.save(byUpload);
+    }
+
     return "aa";
   }
 
@@ -69,5 +79,15 @@ public class JobDestinationServiceImpl implements JobDestinationService {
     return jobDestinationRepository.findByJobEntityId(id)
         .stream()
         .allMatch(JobDestinationEntity::getSend);
+  }
+
+  @Override
+  public JobDestinationDto findById(UUID id) {
+
+    Optional<JobDestinationEntity> byId = Optional
+        .ofNullable(jobDestinationRepository.findById(id)
+            .orElseThrow(() -> new EntityNotfoundException(id.toString())));
+
+    return JobDestinationMapper.INSTANCE.toJobDestination(byId.get());
   }
 }

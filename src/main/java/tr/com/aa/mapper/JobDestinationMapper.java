@@ -14,6 +14,8 @@ public interface JobDestinationMapper {
 
   List<JobDestinationDto> toJobDestinationDto(List<JobDestinationEntity> jobDestinationEntities);
 
+  JobDestinationDto toJobDestination(JobDestinationEntity jobDestinationEntities);
+
   List<JobDestinationViewDto> toJobDestinationViewDto(
       List<JobDestinationEntity> jobDestinationEntities);
 }

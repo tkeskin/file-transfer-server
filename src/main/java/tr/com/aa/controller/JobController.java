@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tr.com.aa.artemis.JmsProducer;
+import tr.com.aa.activemq.Producer;
 import tr.com.aa.exception.BadRequestException;
 import tr.com.aa.exception.ErrorDetails;
 import tr.com.aa.models.JobDestinationList;
@@ -35,7 +35,7 @@ public class JobController {
   JobService jobService;
 
   @Autowired
-  JmsProducer jmsProducer;
+  Producer producer;
 
   /**
    * job - list
@@ -159,7 +159,7 @@ public class JobController {
   public ResponseEntity<?> startJob(@PathVariable(value = "id") UUID id) {
 
     try {
-      jmsProducer.sendUpload(id);
+      //producer.sendUpload(id);
       return ResponseEntity.ok("ok");
     } catch (Exception exp) {
       throw new BadRequestException(exp.getLocalizedMessage());
@@ -280,7 +280,7 @@ public class JobController {
   public ResponseEntity<?> startDownload(@PathVariable(value = "id") UUID id) {
 
     try {
-      jmsProducer.sendDownload(id);
+      //producer.sendDownload(id);
       return ResponseEntity.ok("ok");
     } catch (Exception exp) {
       throw new BadRequestException(exp.getLocalizedMessage());

@@ -7,9 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -30,50 +28,46 @@ public class FileDownloadServiceImpl implements FileDownloadService {
   @Autowired
   ProjectService projectService;
 
-  @Async
+  @Async("downloadTaskExecutor")
   @Override
-  public CompletableFuture<List<JobDestinationDto>> downloadFile(String downloadPath,
-                                                                 List<JobDestinationDto> jobDestinationDto) {
+  public CompletableFuture<JobDestinationDto> downloadFile(String downloadPath,
+                                                           JobDestinationDto jobDestinationDto) {
 
-    List<JobDestinationDto> jobDestination = new ArrayList<>();
-    for (JobDestinationDto jobDestinationDtos : jobDestinationDto) {
-      log.info(
-          "Start download thread: {} for url {}", Thread.currentThread().getName(),
-          jobDestinationDtos.getDownloadUrl());
-      InputStream inputStream;
-      FileOutputStream outputStream;
-      String targetDirectory = getTodayFolder(downloadPath);
-      FileUtil.createLocalDirectory(targetDirectory);
-      String fileName = jobDestinationDtos.getDownloadUrl()
-          .substring(jobDestinationDtos.getDownloadUrl().lastIndexOf('/') + 1);
-      long start = System.currentTimeMillis();
-      try {
-        inputStream = new URL(jobDestinationDtos.getDownloadUrl()).openStream();
-        outputStream = new FileOutputStream(targetDirectory + File.separator
-            + FilenameUtils.getName(fileName));
-        int i = IOUtils.copy(inputStream, outputStream);
-        if (i == -1) {
-          IOUtils.copyLarge(inputStream, outputStream);
-        }
-        jobDestinationDtos.setDownload(true);
-        jobDestinationDtos.setDownloadPath(targetDirectory + File.separator
-            + FilenameUtils.getName(fileName));
-        jobDestinationDtos.setDownloadDateTime(new Date());
-      } catch (IOException e) {
-        log.error("{} : ", jobDestinationDtos.getDownloadUrl(), e);
+    log.info(
+        "Start download thread: {} for url {}", Thread.currentThread().getName(),
+        jobDestinationDto.getDownloadUrl());
+    InputStream inputStream;
+    FileOutputStream outputStream;
+    String targetDirectory = getTodayFolder(downloadPath);
+    FileUtil.createLocalDirectory(targetDirectory);
+    String fileName = jobDestinationDto.getDownloadUrl()
+        .substring(jobDestinationDto.getDownloadUrl().lastIndexOf('/') + 1);
+    long start = System.currentTimeMillis();
+    try {
+      inputStream = new URL(jobDestinationDto.getDownloadUrl()).openStream();
+      outputStream = new FileOutputStream(targetDirectory + File.separator
+          + FilenameUtils.getName(fileName));
+      int i = IOUtils.copy(inputStream, outputStream);
+      if (i == -1) {
+        IOUtils.copyLarge(inputStream, outputStream);
       }
-      long end = System.currentTimeMillis();
-      log.info("{} Total time {} for file name {}", Thread.currentThread().getName(), (end - start),
-          targetDirectory + File.separator
-              + FilenameUtils.getName(fileName));
-      jobDestination.add(jobDestinationDtos);
+      jobDestinationDto.setDownload(true);
+      jobDestinationDto.setDownloadPath(targetDirectory + File.separator
+          + FilenameUtils.getName(fileName));
+      jobDestinationDto.setDownloadDateTime(new Date());
+    } catch (IOException e) {
+      log.error("{} : ", jobDestinationDto.getDownloadUrl(), e);
     }
-    return CompletableFuture.completedFuture(jobDestination);
+    long end = System.currentTimeMillis();
+    log.info("{} Total time {} for file name {}", Thread.currentThread().getName(), (end - start),
+        targetDirectory + File.separator
+            + FilenameUtils.getName(fileName));
+    return CompletableFuture.completedFuture(jobDestinationDto);
   }
 
   private String getTodayFolder(String downloadPath) {
 
-    String format = "yyyy-MM-dd-HH:mm:ss";
+    String format = "yyyy-MM-dd-HH";
     DateFormat dateFormatter = new SimpleDateFormat(format);
     String date = dateFormatter.format(new Date());
     return FileUtils.getUserDirectoryPath() + downloadPath + "/" + date;

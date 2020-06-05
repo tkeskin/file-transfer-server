@@ -41,4 +41,3 @@ springdoc:
     path: /aa-fit-doc.html
 aa.upload.queue: upload-queue
 aa.download.queue: download-queue
-aa.autostart.queue: auto-start

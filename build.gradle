@@ -55,6 +55,7 @@ repositories {
 dependencies {
     implementation files('src/main/resources/lib/file-transfer.jar')
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-activemq'
     implementation 'org.springframework.integration:spring-integration-file'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -70,8 +71,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-    implementation 'org.springframework.boot:spring-boot-starter-artemis'
-    implementation 'org.apache.activemq:artemis-jms-server'
     implementation "com.hazelcast:hazelcast-hibernate53:${hazelcastHibernateVersion}"
     implementation "com.hazelcast:hazelcast-spring"
     implementation "org.hibernate:hibernate-jcache"

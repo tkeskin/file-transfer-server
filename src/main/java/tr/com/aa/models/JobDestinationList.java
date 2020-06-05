@@ -9,4 +9,6 @@ import lombok.Setter;
 public class JobDestinationList {
 
   private List<JobDestinationViewDto> jobDestinationViewList;
+
+  private List<JobDestinationDto> jobDestinationList;
 }
