@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import tr.com.aa.dal.entity.User;
 import tr.com.aa.service.FileTransferService;
-import tr.com.aa.util.Const;
 
 @RestController
 public class UserController {
@@ -22,7 +21,7 @@ public class UserController {
   private FileTransferService fileTransferService;
 
   @PostMapping(value = "/users", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-      produces = Const.JSON)
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity saveUsers(@RequestParam(value = "files") MultipartFile[] files)
       throws Exception {
 
@@ -32,13 +31,13 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
-  @GetMapping(value = "/users", produces = Const.JSON)
+  @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
   public CompletableFuture<ResponseEntity> findAllUsers() {
 
     return fileTransferService.findAllUsers().thenApply(ResponseEntity::ok);
   }
 
-  @GetMapping(value = "/getUsersByThread", produces = Const.JSON)
+  @GetMapping(value = "/getUsersByThread", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity getUsers() {
 
     CompletableFuture<List<User>> users1 = fileTransferService.findAllUsers();

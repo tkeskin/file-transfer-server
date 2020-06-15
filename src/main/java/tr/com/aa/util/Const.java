@@ -5,7 +5,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class Const {
 
-  public final int POOL_SIZE = 10;
   public final int PENDING_JOB = 0;
   public final int COMPLETED_JOB = 3;
 
@@ -15,8 +14,7 @@ public class Const {
   public final String TABLE_JOB = "job";
   public final String TABLE_JOB_DESTINATION = "job_destination";
   public final String TABLE_JOB_STATUS = "job_status";
-
-  public final String JSON = "application/json";
+  public final String TABLE_APP_CONFIG = "app_config";
 
   public class Request {
 
@@ -30,6 +28,8 @@ public class Const {
     public static final String START_DOWNLOAD = "/start-download/{id}";
     public static final String TEST_CONNECTION = "/test-connection";
     public static final String PROJECT = "/project";
+    public static final String APP_CONFIG = "/app-config";
+    public static final String DELETE_APP_CONFIG = "/app-config/{id}";
     public static final String DELETE_PROJECT = "/project/{id}";
   }
 }

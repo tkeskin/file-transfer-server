@@ -20,11 +20,11 @@ spring:
     drop-first: false
     enabled: false
 
-logging.file: /logs/aa-file-transfer/app.log # spring 2.0.0 da file ve max-size propertylerini birlikte bu şekilde set edebiliyoruz.
 logging.pattern.console:
 logging:
   file:
     max-size: 50MB
+    name: /logs/aa-file-transfer/app.log
   level:
     ROOT: ERROR
     tr.com: INFO

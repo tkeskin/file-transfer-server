@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,7 +68,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.JOB, produces = Const.JSON)
+  @GetMapping(value = Const.Request.JOB, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> all() {
 
     try {
@@ -113,8 +114,8 @@ public class JobController {
           )
       }
   )
-  @PostMapping(value = Const.Request.JOB, consumes = Const.JSON,
-      produces = Const.JSON)
+  @PostMapping(value = Const.Request.JOB, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> saveJob(@Valid @RequestBody JobsDto jobsDto) {
 
     try {
@@ -155,7 +156,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.START_UPLOAD, produces = Const.JSON)
+  @GetMapping(value = Const.Request.START_UPLOAD, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> startJob(@PathVariable(value = "id") UUID id) {
 
     try {
@@ -196,7 +197,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.DELETE_JOB, produces = Const.JSON)
+  @GetMapping(value = Const.Request.DELETE_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> deleteJob(@PathVariable(value = "id") UUID id) throws Exception {
 
     try {
@@ -236,7 +237,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.DETAIL_JOB, produces = Const.JSON)
+  @GetMapping(value = Const.Request.DETAIL_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> getJobDestination(@PathVariable(value = "id") UUID id) throws Exception {
 
     try {
@@ -276,7 +277,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.START_DOWNLOAD, produces = Const.JSON)
+  @GetMapping(value = Const.Request.START_DOWNLOAD, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> startDownload(@PathVariable(value = "id") UUID id) {
 
     try {
@@ -317,7 +318,7 @@ public class JobController {
           )
       }
   )
-  @GetMapping(value = Const.Request.QUERY_JOB, produces = Const.JSON)
+  @GetMapping(value = Const.Request.QUERY_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> queryJob(@PathVariable(value = "createdById") UUID createdById)
       throws Exception {
 

@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,7 +64,7 @@ public class ProjectController {
           )
       }
   )
-  @GetMapping(value = Const.Request.PROJECT, produces = Const.JSON)
+  @GetMapping(value = Const.Request.PROJECT, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> all() {
 
     return ResponseEntity.ok(projectService.findAll());
@@ -99,7 +100,7 @@ public class ProjectController {
           )
       }
   )
-  @GetMapping(value = Const.Request.DELETE_PROJECT, produces = Const.JSON)
+  @GetMapping(value = Const.Request.DELETE_PROJECT, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> deleteProject(@PathVariable(value = "id") UUID id) {
 
     try {
@@ -144,7 +145,8 @@ public class ProjectController {
           )
       }
   )
-  @PostMapping(value = Const.Request.PROJECT, consumes = Const.JSON, produces = Const.JSON)
+  @PostMapping(value = Const.Request.PROJECT, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> saveProject(@Valid @RequestBody ProjectDto projectDto) {
 
     try {

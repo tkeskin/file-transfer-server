@@ -39,5 +39,3 @@ management:
 springdoc:
   swagger-ui:
     path: /aa-fit-doc.html
-aa.upload.queue: upload-queue
-aa.download.queue: download-queue

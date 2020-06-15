@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import tr.com.aa.service.FileDownloadService;
 import tr.com.aa.service.FileUploadService;
 import tr.com.aa.service.JobDestinationService;
-import tr.com.aa.service.JobService;
 
 @Slf4j
 @Component
@@ -25,9 +24,6 @@ public class Consumer {
 
   @Autowired
   FileUploadService fileUploadService;
-
-  @Autowired
-  JobService jobService;
 
   @JmsListener(destination = "${aa.download.queue}")
   public void receiveDownload(String id) throws InterruptedException {

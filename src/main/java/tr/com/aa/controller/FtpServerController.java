@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +63,7 @@ public class FtpServerController {
           )
       }
   )
-  @GetMapping(value = Const.Request.FTP_SERVER, produces = Const.JSON)
+  @GetMapping(value = Const.Request.FTP_SERVER, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> all() {
 
     return ResponseEntity.ok(ftpServerService.findAll());
@@ -103,8 +104,8 @@ public class FtpServerController {
           )
       }
   )
-  @PostMapping(value = Const.Request.FTP_SERVER, consumes = Const.JSON,
-      produces = Const.JSON)
+  @PostMapping(value = Const.Request.FTP_SERVER, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> saveFtpServer(@Valid @RequestBody FtpServerDto ftpServerDto) {
 
     try {
@@ -145,7 +146,7 @@ public class FtpServerController {
           )
       }
   )
-  @GetMapping(value = Const.Request.DELETE_FTP_SERVER, produces = Const.JSON)
+  @GetMapping(value = Const.Request.DELETE_FTP_SERVER, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> deleteFtpServer(@PathVariable(value = "id") UUID id) {
 
     try {
@@ -185,8 +186,8 @@ public class FtpServerController {
           )
       }
   )
-  @PostMapping(value = Const.Request.TEST_CONNECTION, consumes = Const.JSON,
-      produces = Const.JSON)
+  @PostMapping(value = Const.Request.TEST_CONNECTION, consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<?> testConnection(@RequestBody FtpServerDto ftpServerDto) {
 
     try {
