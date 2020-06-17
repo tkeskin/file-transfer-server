@@ -16,3 +16,18 @@ $ docker image ls
 
 Run Docker Image
 $ docker run -p 8090:8090 file-transfer
+
+# stack
+- basic auth
+- Async, Scheduler
+- jpa, hibernate, envers
+- MapStruct
+- lombok
+- liquibase
+- hazelcast
+- activemq
+- postgres
+- docker
+- gradle
+- pmd, checkstyle
+- swagger
