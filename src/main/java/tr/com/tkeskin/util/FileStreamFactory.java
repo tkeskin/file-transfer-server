@@ -7,13 +7,13 @@ import java.io.FileOutputStream;
 
 public class FileStreamFactory {
 
-  public FileInputStream createInputStream(String filePath) throws FileNotFoundException {
+    public FileInputStream createInputStream(String filePath) throws FileNotFoundException {
 
-    return new FileInputStream(new File(filePath));
-  }
+        return new FileInputStream(new File(filePath));
+    }
 
-  public FileOutputStream createOutputStream(String filePath) throws FileNotFoundException {
+    public FileOutputStream createOutputStream(String filePath) throws FileNotFoundException {
 
-    return new FileOutputStream(new File(filePath));
-  }
+        return new FileOutputStream(new File(filePath));
+    }
 }

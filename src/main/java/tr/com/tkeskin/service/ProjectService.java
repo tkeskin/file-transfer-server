@@ -1,16 +1,17 @@
 package tr.com.tkeskin.service;
 
-import java.util.UUID;
 import tr.com.tkeskin.models.ProjectDto;
 import tr.com.tkeskin.models.ProjectList;
 
+import java.util.UUID;
+
 public interface ProjectService {
 
-  ProjectDto findById(UUID id);
+    ProjectDto findById(UUID id);
 
-  ProjectList findAll();
+    ProjectList findAll();
 
-  Boolean saveProject(ProjectDto projectDto);
+    Boolean saveProject(ProjectDto projectDto);
 
-  Boolean deleteProject(UUID id);
+    Boolean deleteProject(UUID id);
 }

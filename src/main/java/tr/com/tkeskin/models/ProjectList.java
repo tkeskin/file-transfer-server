@@ -1,10 +1,11 @@
 package tr.com.tkeskin.models;
 
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ProjectList {
 
-  private List<ProjectDto> projectList;
+    private List<ProjectDto> projectList;
 }

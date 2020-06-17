@@ -1,6 +1,5 @@
 package tr.com.tkeskin.activemq;
 
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
@@ -9,39 +8,41 @@ import tr.com.tkeskin.service.FileDownloadService;
 import tr.com.tkeskin.service.FileUploadService;
 import tr.com.tkeskin.service.JobDestinationService;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 public class Consumer {
 
-  @Autowired
-  Producer producer;
+    @Autowired
+    Producer producer;
 
-  @Autowired
-  JobDestinationService jobDestinationService;
+    @Autowired
+    JobDestinationService jobDestinationService;
 
-  @Autowired
-  FileDownloadService fileDownloadService;
+    @Autowired
+    FileDownloadService fileDownloadService;
 
-  @Autowired
-  FileUploadService fileUploadService;
+    @Autowired
+    FileUploadService fileUploadService;
 
-  @JmsListener(destination = "${aa.download.queue}")
-  public void receiveDownload(String id) throws InterruptedException {
+    @JmsListener(destination = "${download.queue}")
+    public void receiveDownload(String id) throws InterruptedException {
 
-    log.info("Received download file id= {}", id);
-    Thread.sleep(750);
-    fileDownloadService.downloadFile("/test", jobDestinationService.findById(UUID.fromString(id)))
-        .thenApply(c -> jobDestinationService.findByDownloadFalseAndId(c))
-        .whenComplete((result, a) -> producer.sendUpload(result.getId().toString()));
-  }
+        log.info("Received download file id= {}", id);
+        Thread.sleep(750);
+        fileDownloadService.downloadFile("/test", jobDestinationService.findById(UUID.fromString(id)))
+                .thenApply(c -> jobDestinationService.findByDownloadFalseAndId(c))
+                .whenComplete((result, a) -> producer.sendUpload(result.getId().toString()));
+    }
 
-  @JmsListener(destination = "${aa.upload.queue}")
-  public void receiveUpload(String id) throws InterruptedException {
+    @JmsListener(destination = "${upload.queue}")
+    public void receiveUpload(String id) throws InterruptedException {
 
-    log.info("Received upload file id= {}", id);
-    Thread.sleep(9000);
-    fileUploadService.uploadFile(jobDestinationService.findById(UUID.fromString(id)))
-        .thenApply(x -> jobDestinationService.updateSend(x));
-  }
+        log.info("Received upload file id= {}", id);
+        Thread.sleep(9000);
+        fileUploadService.uploadFile(jobDestinationService.findById(UUID.fromString(id)))
+                .thenApply(x -> jobDestinationService.updateSend(x));
+    }
 
 }

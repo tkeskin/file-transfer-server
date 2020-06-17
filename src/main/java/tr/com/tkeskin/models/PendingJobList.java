@@ -1,12 +1,13 @@
 package tr.com.tkeskin.models;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
 public class PendingJobList {
 
-  private List<JobDto> pendingJobList;
+    private List<JobDto> pendingJobList;
 }

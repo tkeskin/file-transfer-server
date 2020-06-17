@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenApiConfig {
 
-  @Bean
-  public OpenAPI customCofiguration() {
+    @Bean
+    public OpenAPI customCofiguration() {
 
-    return new OpenAPI()
-        .components(new Components())
-        .info(new Info().title("File Transfer API Docs")
-            .description("AA File Transfer Server REST API documentation"));
-  }
+        return new OpenAPI()
+                .components(new Components())
+                .info(new Info().title("File Transfer API Docs")
+                        .description("File Transfer Server REST API documentation"));
+    }
 }

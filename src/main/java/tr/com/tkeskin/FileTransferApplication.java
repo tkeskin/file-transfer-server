@@ -1,6 +1,5 @@
 package tr.com.tkeskin;
 
-import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +13,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import java.util.Arrays;
+
 @Slf4j
 @EnableCircuitBreaker
 @EnableJpaAuditing
@@ -23,35 +24,35 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class FileTransferApplication implements CommandLineRunner {
 
-  @Autowired
-  private Environment environment;
+    @Autowired
+    private Environment environment;
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-    SpringApplication.run(FileTransferApplication.class, args);
-  }
-
-  @Override
-  public void run(String... args) throws Exception {
-
-    String[] activeProfiles = environment.getActiveProfiles();
-
-    log.info("--- Active profiles: " + Arrays.stream(activeProfiles)
-        .map(s -> "(" + s + ")")
-        .reduce("", String::concat));
-
-    final String prodProfile = "prod";
-    if (Arrays.stream(activeProfiles).anyMatch(
-        env -> env.equalsIgnoreCase(prodProfile))) {
-
-      System.setProperty("spring.profiles.active", prodProfile);
-      if (System.getProperty("spring.profiles.active") == null
-          || !System.getProperty("spring.profiles.active").equals(prodProfile)) {
-        String exMessage = "--- Uygulama profi̇li̇ 'prod' olarak set EDİLEMEDİ!!!";
-        log.error(exMessage);
-        throw new RuntimeException(exMessage);
-      }
-      log.info("--- System property of spring.profiles.active is set to prod");
+        SpringApplication.run(FileTransferApplication.class, args);
     }
-  }
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        String[] activeProfiles = environment.getActiveProfiles();
+
+        log.info("--- Active profiles: " + Arrays.stream(activeProfiles)
+                .map(s -> "(" + s + ")")
+                .reduce("", String::concat));
+
+        final String prodProfile = "prod";
+        if (Arrays.stream(activeProfiles).anyMatch(
+                env -> env.equalsIgnoreCase(prodProfile))) {
+
+            System.setProperty("spring.profiles.active", prodProfile);
+            if (System.getProperty("spring.profiles.active") == null
+                    || !System.getProperty("spring.profiles.active").equals(prodProfile)) {
+                String exMessage = "--- Uygulama profi̇li̇ 'prod' olarak set edi̇lemedi̇!!!";
+                log.error(exMessage);
+                throw new RuntimeException(exMessage);
+            }
+            log.info("--- System property of spring.profiles.active is set to prod");
+        }
+    }
 }

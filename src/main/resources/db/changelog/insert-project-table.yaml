@@ -8,10 +8,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "Haber Akış Sistemi"
+                  value: "Akış Sistemi"
               - column:
                   name: download_path
-                  value: "/has"
+                  value: "/as"
               - column:
                   name: created_by
                   value: "system"
@@ -23,10 +23,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "aa.com.tr"
+                  value: "com.tr"
               - column:
                   name: download_path
-                  value: "/aacomtr"
+                  value: "/comtr"
               - column:
                   name: created_by
                   value: "system"
@@ -38,10 +38,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "AA Connect"
+                  value: "Connect"
               - column:
                   name: download_path
-                  value: "/aaconnect"
+                  value: "/connect"
               - column:
                   name: created_by
                   value: "system"
@@ -53,10 +53,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "Finans Terminali"
+                  value: "Finans"
               - column:
                   name: download_path
-                  value: "/finansterminali"
+                  value: "/finans"
               - column:
                   name: created_by
                   value: "system"
@@ -68,10 +68,10 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
-                  value: "Haber Takip Sistemi"
+                  value: "Takip Sistemi"
               - column:
                   name: download_path
-                  value: "/hts"
+                  value: "/ts"
               - column:
                   name: created_by
                   value: "system"

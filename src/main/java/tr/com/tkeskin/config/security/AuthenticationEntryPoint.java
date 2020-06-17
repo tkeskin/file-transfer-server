@@ -5,14 +5,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationEntryPoint
-    extends BasicAuthenticationEntryPoint {
+        extends BasicAuthenticationEntryPoint {
 
-  private static final String REALM_NAME = "AA-FILE-TRANSFER-API";
+    private static final String REALM_NAME = "FILE-TRANSFER-API";
 
-  @Override
-  public void afterPropertiesSet() {
+    @Override
+    public void afterPropertiesSet() {
 
-    setRealmName(REALM_NAME);
-    super.afterPropertiesSet();
-  }
+        setRealmName(REALM_NAME);
+        super.afterPropertiesSet();
+    }
 }

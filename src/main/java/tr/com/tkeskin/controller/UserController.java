@@ -1,7 +1,5 @@
 package tr.com.tkeskin.controller;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,36 +12,39 @@ import org.springframework.web.multipart.MultipartFile;
 import tr.com.tkeskin.dal.entity.User;
 import tr.com.tkeskin.service.FileTransferService;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 public class UserController {
 
-  @Autowired
-  private FileTransferService fileTransferService;
+    @Autowired
+    private FileTransferService fileTransferService;
 
-  @PostMapping(value = "/users", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity saveUsers(@RequestParam(value = "files") MultipartFile[] files)
-      throws Exception {
+    @PostMapping(value = "/users", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity saveUsers(@RequestParam(value = "files") MultipartFile[] files)
+            throws Exception {
 
-    for (MultipartFile file : files) {
-      fileTransferService.saveUsers(file);
+        for (MultipartFile file : files) {
+            fileTransferService.saveUsers(file);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
 
-  @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-  public CompletableFuture<ResponseEntity> findAllUsers() {
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CompletableFuture<ResponseEntity> findAllUsers() {
 
-    return fileTransferService.findAllUsers().thenApply(ResponseEntity::ok);
-  }
+        return fileTransferService.findAllUsers().thenApply(ResponseEntity::ok);
+    }
 
-  @GetMapping(value = "/getUsersByThread", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity getUsers() {
+    @GetMapping(value = "/getUsersByThread", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUsers() {
 
-    CompletableFuture<List<User>> users1 = fileTransferService.findAllUsers();
-    CompletableFuture<List<User>> users2 = fileTransferService.findAllUsers();
-    CompletableFuture<List<User>> users3 = fileTransferService.findAllUsers();
-    CompletableFuture.allOf(users1, users2, users3).join();
-    return ResponseEntity.status(HttpStatus.OK).build();
-  }
+        CompletableFuture<List<User>> users1 = fileTransferService.findAllUsers();
+        CompletableFuture<List<User>> users2 = fileTransferService.findAllUsers();
+        CompletableFuture<List<User>> users3 = fileTransferService.findAllUsers();
+        CompletableFuture.allOf(users1, users2, users3).join();
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

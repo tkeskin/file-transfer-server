@@ -7,17 +7,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.UUID;
-import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tr.com.tkeskin.activemq.Producer;
 import tr.com.tkeskin.exception.BadRequestException;
 import tr.com.tkeskin.exception.ErrorDetails;
@@ -27,306 +21,228 @@ import tr.com.tkeskin.models.JobsDto;
 import tr.com.tkeskin.service.JobService;
 import tr.com.tkeskin.util.Const;
 
+import javax.validation.Valid;
+import java.util.UUID;
+
 @Slf4j
 @Tag(name = "job", description = ".")
 @RestController
 public class JobController {
 
-  @Autowired
-  JobService jobService;
+    @Autowired
+    JobService jobService;
 
-  @Autowired
-  Producer producer;
+    @Autowired
+    Producer producer;
 
-  /**
-   * job - list
-   *
-   * @return .
-   */
-  @Operation(
-      summary = "Find all job",
-      description = "Find all job",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  array = @ArraySchema(
-                      schema = @Schema(implementation = JobList.class)
-                  )
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.JOB, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> all() {
+    /**
+     * job - list
+     *
+     * @return .
+     */
+    @Operation(
+            summary = "Find all job",
+            description = "Find all job",
+            tags = "Job"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "successful operation",
+                            content = @Content(
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = JobList.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    )
+            }
+    )
+    @GetMapping(value = Const.Request.JOB, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> all() {
 
-    try {
-      return ResponseEntity.ok(jobService.findAll());
-    } catch (Exception e) {
-      throw new BadRequestException(e.getLocalizedMessage());
+        try {
+            return ResponseEntity.ok(jobService.findAll());
+        } catch (Exception e) {
+            throw new BadRequestException(e.getLocalizedMessage());
+        }
+
     }
 
-  }
+    /**
+     * job - save
+     *
+     * @return .
+     */
+    @Operation(
+            summary = "Create new job",
+            description = "Create a new job",
+            tags = "Job"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "successful operation",
+                            content = @Content(
+                                    schema = @Schema(implementation = JobsDto.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "409",
+                            description = "already exists",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    )
+            }
+    )
+    @PostMapping(value = Const.Request.JOB, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveJob(@Valid @RequestBody JobsDto jobsDto) {
 
-  /**
-   * job - save
-   *
-   * @return .
-   */
-  @Operation(
-      summary = "Create new job",
-      description = "Create a new job",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  schema = @Schema(implementation = JobsDto.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "409",
-              description = "already exists",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @PostMapping(value = Const.Request.JOB, consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> saveJob(@Valid @RequestBody JobsDto jobsDto) {
+        try {
+            return ResponseEntity.ok(jobService.saveJob(jobsDto));
+        } catch (Exception exp) {
+            throw new BadRequestException(exp.getMessage());
+        }
 
-    try {
-      return ResponseEntity.ok(jobService.saveJob(jobsDto));
-    } catch (Exception exp) {
-      throw new BadRequestException(exp.getMessage());
     }
 
-  }
+    @Operation(
+            summary = "Delete a job",
+            description = "Delete a job",
+            tags = "Job"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "successful operation",
+                            content = @Content(
+                                    schema = @Schema(implementation = ResponseEntity.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "not found",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    )
+            }
+    )
+    @GetMapping(value = Const.Request.DELETE_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> deleteJob(@PathVariable(value = "id") UUID id) throws Exception {
 
-  @Operation(
-      summary = "Start Upload",
-      description = "Start Upload",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  schema = @Schema(implementation = ResponseEntity.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "404",
-              description = "not found",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.START_UPLOAD, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> startJob(@PathVariable(value = "id") UUID id) {
-
-    try {
-      //producer.sendUpload(id);
-      return ResponseEntity.ok("ok");
-    } catch (Exception exp) {
-      throw new BadRequestException(exp.getLocalizedMessage());
+        try {
+            return ResponseEntity.ok(jobService.deleteJob(id));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
-  }
 
-  @Operation(
-      summary = "Delete a job",
-      description = "Delete a job",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  schema = @Schema(implementation = ResponseEntity.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "404",
-              description = "not found",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.DELETE_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> deleteJob(@PathVariable(value = "id") UUID id) throws Exception {
+    @Operation(
+            summary = "Detail for job",
+            description = "Detail",
+            tags = "Job"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "successful operation",
+                            content = @Content(
+                                    schema = @Schema(implementation = JobDestinationList.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "not found",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    )
+            }
+    )
+    @GetMapping(value = Const.Request.DETAIL_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getJobDestination(@PathVariable(value = "id") UUID id) throws Exception {
 
-    try {
-      return ResponseEntity.ok(jobService.deleteJob(id));
-    } catch (Exception e) {
-      throw new Exception(e.getMessage());
+        try {
+            return ResponseEntity.ok(jobService.findByJobId(id));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
-  }
 
-  @Operation(
-      summary = "Detail for job",
-      description = "Detail",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  schema = @Schema(implementation = JobDestinationList.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "404",
-              description = "not found",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.DETAIL_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> getJobDestination(@PathVariable(value = "id") UUID id) throws Exception {
 
-    try {
-      return ResponseEntity.ok(jobService.findByJobId(id));
-    } catch (Exception e) {
-      throw new Exception(e.getMessage());
+    @Operation(
+            summary = "Query for job",
+            description = "Query",
+            tags = "Job"
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "successful operation",
+                            content = @Content(
+                                    schema = @Schema(implementation = JobDestinationList.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "Bad request",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "not found",
+                            content = @Content(
+                                    schema = @Schema(implementation = ErrorDetails.class)
+                            )
+                    )
+            }
+    )
+    @GetMapping(value = Const.Request.QUERY_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> queryJob(@PathVariable(value = "createdById") UUID createdById)
+            throws Exception {
+
+        try {
+            return ResponseEntity.ok(jobService.findBycreatedById(createdById));
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
-  }
-
-  @Operation(
-      summary = "Start Download",
-      description = "Start Download",
-      tags = "Download"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful",
-              content = @Content(
-                  schema = @Schema(implementation = ResponseEntity.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "404",
-              description = "not found",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.START_DOWNLOAD, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> startDownload(@PathVariable(value = "id") UUID id) {
-
-    try {
-      //producer.sendDownload(id);
-      return ResponseEntity.ok("ok");
-    } catch (Exception exp) {
-      throw new BadRequestException(exp.getLocalizedMessage());
-    }
-  }
-
-  @Operation(
-      summary = "Query for job",
-      description = "Query",
-      tags = "Job"
-  )
-  @ApiResponses(
-      value = {
-          @ApiResponse(
-              responseCode = "200",
-              description = "successful operation",
-              content = @Content(
-                  schema = @Schema(implementation = JobDestinationList.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "400",
-              description = "Bad request",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          ),
-          @ApiResponse(
-              responseCode = "404",
-              description = "not found",
-              content = @Content(
-                  schema = @Schema(implementation = ErrorDetails.class)
-              )
-          )
-      }
-  )
-  @GetMapping(value = Const.Request.QUERY_JOB, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<?> queryJob(@PathVariable(value = "createdById") UUID createdById)
-      throws Exception {
-
-    try {
-      return ResponseEntity.ok(jobService.findBycreatedById(createdById));
-    } catch (Exception e) {
-      throw new Exception(e.getMessage());
-    }
-  }
 
 }

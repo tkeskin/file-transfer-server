@@ -1,14 +1,15 @@
 package tr.com.tkeskin.dal.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import tr.com.tkeskin.util.Const;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @EqualsAndHashCode(of = {"id"})
@@ -17,11 +18,11 @@ import tr.com.tkeskin.util.Const;
 @Entity
 public class JobStatusEntity {
 
-  @Id
-  @Column(name = "ID")
-  private Integer id;
+    @Id
+    @Column(name = "ID")
+    private Integer id;
 
-  @Column(name = "NAME")
-  private String name;
+    @Column(name = "NAME")
+    private String name;
 
 }

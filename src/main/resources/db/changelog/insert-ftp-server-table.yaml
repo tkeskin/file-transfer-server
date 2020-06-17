@@ -50,7 +50,7 @@ databaseChangeLog:
                   value: "paramagnetic-sonar"
               - column:
                   name: password
-                  value: "REo5D^*x2PcG"
+                  value: "ps13579!"
               - column:
                   name: created_by
                   value: "system"

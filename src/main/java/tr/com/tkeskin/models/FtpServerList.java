@@ -1,10 +1,11 @@
 package tr.com.tkeskin.models;
 
-import java.util.List;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class FtpServerList {
 
-  private List<FtpServerDto> ftpServerList;
+    private List<FtpServerDto> ftpServerList;
 }

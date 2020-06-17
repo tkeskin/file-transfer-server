@@ -14,50 +14,50 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @EnableWebSecurity
 public class SecurityConfiguration
-    extends WebSecurityConfigurerAdapter {
+        extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private AuthenticationEntryPoint authenticationEntryPoint;
+    @Autowired
+    private AuthenticationEntryPoint authenticationEntryPoint;
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
-    http
-        .csrf().disable()
-        .cors()
-        .and()
-        .authorizeRequests()
-        .anyRequest()
-        .authenticated()
-        .and()
-        .httpBasic()
-        .authenticationEntryPoint(authenticationEntryPoint);
-  }
+        http
+                .csrf().disable()
+                .cors()
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(authenticationEntryPoint);
+    }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-    auth.inMemoryAuthentication()
-        .withUser("aafiletransfer")
-        .password(passwordEncoder().encode("1qaz2wsX!"))
-        .roles("APP_USER");
-  }
+        auth.inMemoryAuthentication()
+                .withUser("filetransfer")
+                .password(passwordEncoder().encode("1qaz2wsX!"))
+                .roles("APP_USER");
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
 
-    return new BCryptPasswordEncoder();
-  }
+        return new BCryptPasswordEncoder();
+    }
 
-  @Bean
-  public WebMvcConfigurer corsConfigurer() {
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
 
-    return new WebMvcConfigurerAdapter() {
-      @Override
-      public void addCorsMappings(CorsRegistry registry) {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
 
-        registry.addMapping("/**");
-      }
-    };
-  }
+                registry.addMapping("/**");
+            }
+        };
+    }
 }

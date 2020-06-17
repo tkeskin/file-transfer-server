@@ -1,6 +1,5 @@
 package tr.com.tkeskin.exception;
 
-import java.util.Date;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,68 +11,70 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Date;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(IllegalArgumentException.class)
-  public String illegalArgumentException() {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String illegalArgumentException() {
 
-    return "Wrong parameter";
-  }
+        return "Wrong parameter";
+    }
 
-  @ExceptionHandler(EntityNotfoundException.class)
-  public final ResponseEntity<ErrorDetails> entityNotFound(EntityNotfoundException ex,
-                                                           WebRequest request) {
-
-    ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-        request.getDescription(false));
-    return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
-  }
-
-  @ExceptionHandler(BadRequestException.class)
-  public final ResponseEntity<ErrorDetails> badRequest(BadRequestException ex,
-                                                       WebRequest request) {
-
-    ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-        request.getDescription(false));
-    return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-  }
-
-  @ExceptionHandler(MaxUploadSizeExceededException.class)
-  public ResponseEntity<ErrorDetails> handleMaxSizeException(MaxUploadSizeExceededException ex,
+    @ExceptionHandler(EntityNotfoundException.class)
+    public final ResponseEntity<ErrorDetails> entityNotFound(EntityNotfoundException ex,
                                                              WebRequest request) {
 
-    ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-        request.getDescription(true));
-    return new ResponseEntity<>(errorDetails, HttpStatus.EXPECTATION_FAILED);
-  }
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
 
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<?> globalExceptionHandling(Exception ex, WebRequest request) {
+    @ExceptionHandler(BadRequestException.class)
+    public final ResponseEntity<ErrorDetails> badRequest(BadRequestException ex,
+                                                         WebRequest request) {
 
-    ErrorDetails errorDetails =
-        new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-    return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 
-  @ExceptionHandler(ResourceNotFoundException.class)
-  public ResponseEntity<?> resourceNotFoundHandling(ResourceNotFoundException ex,
-                                                    WebRequest request) {
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ErrorDetails> handleMaxSizeException(MaxUploadSizeExceededException ex,
+                                                               WebRequest request) {
 
-    ErrorDetails errorDetails =
-        new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
-    return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
-  }
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getDescription(true));
+        return new ResponseEntity<>(errorDetails, HttpStatus.EXPECTATION_FAILED);
+    }
 
-  @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                HttpHeaders headers,
-                                                                HttpStatus status,
-                                                                WebRequest request) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> globalExceptionHandling(Exception ex, WebRequest request) {
 
-    ErrorDetails errorDetails = new ErrorDetails(new Date(), "Validation Failed",
-        ex.getBindingResult().toString());
-    return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
-  }
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<?> resourceNotFoundHandling(ResourceNotFoundException ex,
+                                                      WebRequest request) {
+
+        ErrorDetails errorDetails =
+                new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Validation Failed",
+                ex.getBindingResult().toString());
+        return new ResponseEntity(errorDetails, HttpStatus.BAD_REQUEST);
+    }
 }
