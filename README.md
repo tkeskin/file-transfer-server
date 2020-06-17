@@ -1,11 +1,13 @@
-#AA File Transfer
+# File Transfer
 - openapi 3.0 entegre edildi dokumantasyon için /fit-doc.html
 
-## db
-- file_transfer schema oluşturulacak.
-- extension için CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; çalıştırılacak.
+# db
+- dev. db --> "sudo docker run --name ft-postgres -e POSTGRES_PASSWORD=pass -d -p 5432:5432 postgres" 
+- dev. pgadmin4 --> "sudo docker run -p 9001:80 --name pdadmin4 -e "PGADMIN_DEFAULT_EMAIL=admin" -e "PGADMIN_DEFAULT_PASSWORD=0" -d dpage/pgadmin4"
+- schema --> "file_transfer"
+- extension --> "CREATE EXTENSION IF NOT EXISTS "uuid-ossp";"
 
-How to Dockerize Spring Boot Application
+# How to Dockerize Spring Boot Application
 Build Docker Image
 $ docker build -t file-transfer .
 
