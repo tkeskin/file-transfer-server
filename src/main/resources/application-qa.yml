@@ -1,6 +1,6 @@
 spring:
   application:
-    name: aa-file-transfer
+    name: file-transfer
   datasource:
     hikari:
       username: postgres
@@ -10,13 +10,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
   jpa:
     show-sql: true
-  cache:
-    type: redis
-  redis:
-    host: 10.10.0.91
-    password: 123456
   liquibase:
-    default-schema: AA_FILE_TRANSFER
+    default-schema: file_transfer
     drop-first: false
     enabled: false
 
@@ -24,7 +19,7 @@ logging.pattern.console:
 logging:
   file:
     max-size: 50MB
-    name: /logs/aa-file-transfer/app.log
+    name: /logs/file-transfer/app.log
   level:
     ROOT: ERROR
     tr.com: INFO

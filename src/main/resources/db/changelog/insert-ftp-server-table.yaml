@@ -23,7 +23,7 @@ databaseChangeLog:
                   value: "mikrorek"
               - column:
                   name: password
-                  value: "xtNZUam#O%3u"
+                  value: "mk13579!"
               - column:
                   name: created_by
                   value: "system"

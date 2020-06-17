@@ -1,6 +1,6 @@
 spring:
   application:
-    name: aa-file-transfer
+    name: file-transfer
   datasource:
     hikari:
       username: postgres
@@ -10,7 +10,7 @@ spring:
       connection-timeout: 20500
     url: jdbc:postgresql://localhost:5432/postgres
   liquibase:
-    default-schema: aa_file_transfer
+    default-schema: file_transfer
     drop-first: false
     enabled: true
   http:
@@ -20,7 +20,7 @@ spring:
     broker-url: tcp://localhost:61616?jms.messagePrioritySupported=true
     packages:
       trust-all: false
-      trusted: tr.com.aa
+      trusted: tr.com.tkeskin
 logging:
   level:
     root: info
@@ -29,6 +29,3 @@ management:
     web:
       exposure:
         include: hystrix.stream
-springdoc:
-  swagger-ui:
-    path: /aa-fit-doc.html

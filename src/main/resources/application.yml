@@ -23,7 +23,7 @@ spring:
           javax:
             cache:
               provider: com.hazelcast.cache.HazelcastCachingProvider
-        default_schema: aa_file_transfer
+        default_schema: file_transfer
         jdbc:
           lob:
             non_contextual_creation: true
@@ -38,4 +38,4 @@ management:
       show-details: ALWAYS
 springdoc:
   swagger-ui:
-    path: /aa-fit-doc.html
+    path: /fit-doc.html
