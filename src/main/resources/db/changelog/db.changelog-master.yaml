@@ -4,8 +4,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/create-job-status-table.yaml
   - include:
-      file: db/changelog/create-app-config-table.yaml
-  - include:
       file: db/changelog/create-job-table.yaml
   - include:
       file: db/changelog/create-user-table.yaml
@@ -15,8 +13,6 @@ databaseChangeLog:
       file: db/changelog/create-project-table.yaml
   - include:
       file: db/changelog/insert-job-status-table.yaml
-  - include:
-      file: db/changelog/insert-app-config-table.yaml
   - include:
       file: db/changelog/insert-project-table.yaml
   - include:

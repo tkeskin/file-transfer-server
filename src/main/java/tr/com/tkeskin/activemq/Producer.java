@@ -11,7 +11,6 @@ import tr.com.tkeskin.models.JobDestinationDto;
 import java.util.Random;
 
 @Slf4j
-@DependsOn("appConfig")
 @Component
 public class Producer {
 

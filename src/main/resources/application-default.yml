@@ -4,14 +4,14 @@ spring:
   datasource:
     hikari:
       username: postgres
-      password: MYPASSWD
+      password: pass
       maximum-pool-size: 50
       minimum-idle: 20
       connection-timeout: 20500
     url: jdbc:postgresql://localhost:5432/postgres
   liquibase:
     default-schema: file_transfer
-    drop-first: false
+    drop-first: true
     enabled: true
   http:
     encoding:

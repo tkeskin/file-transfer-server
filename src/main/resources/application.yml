@@ -7,7 +7,6 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-
   jpa:
     show-sql: true
     database: postgresql
@@ -39,3 +38,5 @@ management:
 springdoc:
   swagger-ui:
     path: /fit-doc.html
+download.queue: download
+upload.queue: upload
