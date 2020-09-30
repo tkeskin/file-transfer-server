@@ -6,7 +6,7 @@ spring:
       maximum-pool-size: 50
       minimum-idle: 20
       connection-timeout: 20500
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://file-postgres:5432/postgres
   liquibase:
     default-schema: public
     drop-first: true
@@ -15,7 +15,6 @@ spring:
     encoding:
       charset: UTF-8
   activemq:
-    broker-url: tcp://localhost:61616?jms.messagePrioritySupported=true
     packages:
       trust-all: false
       trusted: tr.com.tkeskin

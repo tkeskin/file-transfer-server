@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  file-postgres:
+    container_name: con-file-postgres
+    image: postgres:latest
+    volumes:
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5435:5435"
+    environment:
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+  file-transfer-server:
+    container_name: con-fts
+    image: file-transfer-server
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    depends_on:
+      - file-postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: compose
+volumes:
+  postgres_data:

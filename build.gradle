@@ -20,7 +20,7 @@ tasks.withType(Checkstyle) {
 }*/
 
 group = 'tr.com.tkeskin'
-version = '0.0.1-SNAPSHOT'
+//version = '0.0.1-SNAPSHOT'
 description = 'file-transfer-server'
 
 ext {

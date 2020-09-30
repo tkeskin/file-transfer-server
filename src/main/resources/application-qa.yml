@@ -1,6 +1,4 @@
 spring:
-  application:
-    name: file-transfer
   datasource:
     hikari:
       username: postgres
@@ -11,7 +9,7 @@ spring:
   jpa:
     show-sql: true
   liquibase:
-    default-schema: file_transfer
+    default-schema: public
     drop-first: false
     enabled: false
 

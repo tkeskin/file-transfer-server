@@ -1,10 +1,12 @@
 server:
-  port: 7007
+  port: 8090
   tomcat:
     max-threads: 500
     min-spare-threads: 50
 
 spring:
+  application:
+    name: file-transfer
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
   jpa:
@@ -22,7 +24,7 @@ spring:
           javax:
             cache:
               provider: com.hazelcast.cache.HazelcastCachingProvider
-        default_schema: file_transfer
+        default_schema: public
         jdbc:
           lob:
             non_contextual_creation: true
